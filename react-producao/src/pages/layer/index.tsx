@@ -124,6 +124,7 @@ export const Dashboard: React.FC = () => {
     const fetchPorcentagemInteirasPrimeiraData = (date: Date | null) => {
         if (date) {
             const formattedDate = date.toISOString().split('T')[0].replace(/-/g, '');
+            
             api.get(`/query/int1prods?data=${formattedDate}`)
                 .then(response => {
                     if (Array.isArray(response.data)) {
