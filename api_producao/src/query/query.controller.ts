@@ -14,50 +14,94 @@ export class QueryController {
         return await this.prisma.$queryRawUnsafe(sql);
     }*/
 
-    @Get('/prods')
-    async getProds(
+    @Get('/prodsCH')
+    async getProdsCH(
         @Query('data') data: string
     ){
-        return await this.queryService.getProds(data);
+        return await this.queryService.getProdsCH(data);
     }
-    @Get('/intprods')
-    async getIntProds(
+    @Get('/intprodsCH')
+    async getIntProdsCH(
         @Query('data') data: string
     ){
-        return await this.queryService.getIntProds(data);
+        return await this.queryService.getIntProdsCH(data);
     }
-    @Get('/int1prods')
-    async getIntFirstProds(
+    @Get('/int1prodsCH')
+    async getIntFirstProdsCH(
         @Query('data') data: string
     ){
-        return await this.queryService.getIntFirstProds(data);
+        return await this.queryService.getIntFirstProdsCH(data);
     }
 
-    @Get('/qualidade')
-    async getQualidade(
+    @Get('/qualidadeCH')
+    async getQualidadeCH(
         @Query('data') data: string
     ){
-        return await this.queryService.getQualidade(data);
+        return await this.queryService.getQualidadeCH(data);
         }
 
-    @Get('/tipo')
-    async getTipo(
+    @Get('/tipoCH')
+    async getTipoCH(
         @Query('data') data: string
     ){
-        return await this.queryService.getTipo(data);
+        return await this.queryService.getTipoCH(data);
         }
-    @Get('/tipo1')
-    async getTipoPrimeira(
+    @Get('/tipo1CH')
+    async getTipoPrimeiraCH(
         @Query('data') data: string
     ){
-        return await this.queryService.getTipoPrimeira(data);
+        return await this.queryService.getTipoPrimeiraCH(data);
         }
-    @Get('/product')
-    async getProduct(
+    @Get('/productCH')
+    async getProductCH(
         @Query('data') data: string
     ){
-        return await this.queryService.getProduct(data);
+        return await this.queryService.getProductCH(data);
         }
+        @Get('/prods')
+        async getProds(
+            @Query('data') data: string
+        ){
+            return await this.queryService.getProds(data);
+        }
+        @Get('/intprods')
+        async getIntProds(
+            @Query('data') data: string
+        ){
+            return await this.queryService.getIntProds(data);
+        }
+        @Get('/int1prods')
+        async getIntFirstProds(
+            @Query('data') data: string
+        ){
+            return await this.queryService.getIntFirstProds(data);
+        }
+    
+        @Get('/qualidade')
+        async getQualidade(
+            @Query('data') data: string
+        ){
+            return await this.queryService.getQualidade(data);
+            }
+    
+        @Get('/tipo')
+        async getTipo(
+            @Query('data') data: string
+        ){
+            return await this.queryService.getTipo(data);
+            }
+        @Get('/tipo1')
+        async getTipoPrimeira(
+            @Query('data') data: string
+        ){
+            return await this.queryService.getTipoPrimeira(data);
+            }
+        @Get('/product')
+        async getProduct(
+            @Query('data') data: string
+        ){
+            return await this.queryService.getProduct(data);
+            }
         
 
 }

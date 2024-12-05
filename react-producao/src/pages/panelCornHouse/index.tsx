@@ -6,13 +6,13 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { Menu } from '../../../Components/menu';
 import Cione from '../../../public/cioneLogoPequena.png';
 import { api } from '../../lib/axios';
-import { ListProd, ProductionData } from './interfaces';
-import { LimeChart } from './line-chart';
-import { ListProducts } from './list-products';
-import { ProductionChart } from './production-bar';
+import { ListProd, ProductionData } from '../layer/interfaces';
+import { LimeChart } from '../layer/line-chart';
+import { ListProducts } from '../layer/list-products';
+import { ProductionChart } from '../layer/production-bar';
 
 
-export const Dashboard: React.FC = () => {
+export const DashboardCH: React.FC = () => {
     const [data, setData] = useState<ProductionData[]>([]);
     const [tipo, setTipo] = useState<ListProd[]>([]);
     const [products, setProducts] = useState<ListProd[]>([]);
@@ -58,7 +58,7 @@ export const Dashboard: React.FC = () => {
     const fetchProductionData = (date: Date | null) => {
         if (date) {
             const formattedDate = date.toISOString().split('T')[0].replace(/-/g, '');
-            api.get<ProductionData[]>(`/query/prods?data=${formattedDate}`)
+            api.get<ProductionData[]>(`/query/prodsCH?data=${formattedDate}`)
                 .then(response => {
                     if (Array.isArray(response.data)) {
                         // Ajustar a data para evitar problemas com o fuso horário
@@ -90,7 +90,7 @@ export const Dashboard: React.FC = () => {
     const fetchIntegerData = (date: Date | null) => {
         if (date) {
             const formattedDate = date.toISOString().split('T')[0].replace(/-/g, '');
-            api.get(`/query/intprods?data=${formattedDate}`)
+            api.get(`/query/intprodsCH?data=${formattedDate}`)
                 .then(response => {
                     if (Array.isArray(response.data)) {
                         // Ajustar a data para evitar problemas com o fuso horário
@@ -126,7 +126,7 @@ export const Dashboard: React.FC = () => {
         if (date) {
             const formattedDate = date.toISOString().split('T')[0].replace(/-/g, '');
 
-            api.get(`/query/int1prods?data=${formattedDate}`)
+            api.get(`/query/int1prodsCH?data=${formattedDate}`)
                 .then(response => {
                     if (Array.isArray(response.data)) {
                         // Ajustar a data para evitar problemas com o fuso horário
@@ -164,8 +164,8 @@ export const Dashboard: React.FC = () => {
         if (date) {
             const formattedDate = date.toISOString().split('T')[0].replace(/-/g, '');
             Promise.all([
-                api.get<ListProd[]>(`/query/tipo?data=${formattedDate}`),
-                api.get<ListProd[]>(`/query/tipo1?data=${formattedDate}`)
+                api.get<ListProd[]>(`/query/tipoCH?data=${formattedDate}`),
+                api.get<ListProd[]>(`/query/tipo1CH?data=${formattedDate}`)
             ])
                 .then(([tipoResponse, primeiraInteiraResponse]) => {
                     const tipoData = tipoResponse.data;
@@ -185,7 +185,7 @@ export const Dashboard: React.FC = () => {
     const fetchProductData = (date: Date | null) => {
         if (date) {
             const formattedDate = date.toISOString().split('T')[0].replace(/-/g, '');
-            api.get<ListProd[]>(`/query/product?data=${formattedDate}`)
+            api.get<ListProd[]>(`/query/productCH?data=${formattedDate}`)
                 .then(response => {
                     setProducts(response.data);
                 })
@@ -198,7 +198,7 @@ export const Dashboard: React.FC = () => {
     const fetchQualityData = (date: Date | null) => {
         if (date) {
             const formattedDate = date.toISOString().split('T')[0].replace(/-/g, '');
-            api.get<ListProd[]>(`/query/qualidade?data=${formattedDate}`)
+            api.get<ListProd[]>(`/query/qualidadeCH?data=${formattedDate}`)
                 .then(response => {
                     setQualidade(response.data);
                 })
@@ -238,14 +238,13 @@ export const Dashboard: React.FC = () => {
     return (
         <div className="min-h-screen bg-yellow-100 text-zinc-900">
             <header className="bg-zinc-800 text-white p-4 flex items-center justify-between">
-                <div className='flex items-center space-x-9'>
+                <div className='flex items-center'>
                     <img src={Cione} alt="Logo" className="h-8 w-8 mr-4" />
-
-                    <h1 className="text-2xl font-bold ">Painel Cione de Produção</h1>
+                    <h1 className="text-2xl font-bold space-x-3">Painel de Produção CIONE - CH</h1>
                     <Menu items={[
-                       { label: 'Painel Cione  ', link: '/' },
-                       { label: 'Painel Corn House  ', link: '/PanelCornHouse' },
-                       
+                        { label: 'Painel Cione  ', link: '/' },
+                        { label: 'Painel Corn House  ', link: '/PanelCornHouse' },
+                        
                         // Adicione mais itens conforme necessário
                     ]} />
                 </div>
