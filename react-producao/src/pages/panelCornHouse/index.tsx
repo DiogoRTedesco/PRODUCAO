@@ -240,11 +240,11 @@ export const DashboardCH: React.FC = () => {
             <header className="bg-zinc-800 text-white p-4 flex items-center justify-between">
                 <div className='flex items-center'>
                     <img src={Cione} alt="Logo" className="h-8 w-8 mr-4" />
-                    <h1 className="text-2xl font-bold space-x-3">Painel de Produção CIONE - CH</h1>
+                    <h1 className="text-2xl font-bold space-x-3">Painel de Produção Corn House</h1>
                     <Menu items={[
                         { label: 'Painel Cione  ', link: '/' },
                         { label: 'Painel Corn House  ', link: '/PanelCornHouse' },
-                        
+                        { label: 'Painel Cione & Corn House  ', link: '/PanelCioneCornHouse' },
                         // Adicione mais itens conforme necessário
                     ]} />
                 </div>
