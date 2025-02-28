@@ -1,7 +1,9 @@
 import { Module } from '@nestjs/common';
-import { PrismaService } from './prisma.service';
+import { PrismaSqlServerService } from './prisma-sqlserver.service';
+import { PrismaSqliteService } from './prisma-sqlite.service';
 
 @Module({
-  providers: [PrismaService]
+  providers: [PrismaSqlServerService, PrismaSqliteService],
+  exports: [PrismaSqlServerService, PrismaSqliteService],
 })
 export class PrismaModule {}

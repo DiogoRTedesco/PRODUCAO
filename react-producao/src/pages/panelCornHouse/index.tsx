@@ -1,15 +1,14 @@
 import { format } from 'date-fns';
-import { CalendarDaysIcon } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
-import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { Menu } from '../../../Components/menu';
-import Cione from '../../../public/cioneLogoPequena.png';
 import { api } from '../../lib/axios';
 import { ListProd, ProductionData } from '../layer/interfaces';
 import { LimeChart } from '../layer/line-chart';
 import { ListProducts } from '../layer/list-products';
 import { ProductionChart } from '../layer/production-bar';
+import Header from '../../Components/header';
+import { useDate } from '../../contexts/DateContext';
+
 
 
 export const DashboardCH: React.FC = () => {
@@ -17,7 +16,8 @@ export const DashboardCH: React.FC = () => {
     const [tipo, setTipo] = useState<ListProd[]>([]);
     const [products, setProducts] = useState<ListProd[]>([]);
     const [qualidade, setQualidade] = useState<ListProd[]>([]);
-    const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
+    //const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
+    const { selectedDate, setSelectedDate } = useDate();
     const [total, setTotal] = useState<number | null>()
 
     const [selectedOption, setSelectedOption] = useState<'totalCaixas' | 'porcentagemInteiras' | 'porcentagemInteirasPrimeiras'>(() => {
@@ -236,32 +236,14 @@ export const DashboardCH: React.FC = () => {
     }, [products])
 
     return (
-        <div className="min-h-screen bg-yellow-100 text-zinc-900">
-            <header className="bg-zinc-800 text-white p-4 flex items-center justify-between">
-                <div className='flex items-center'>
-                    <img src={Cione} alt="Logo" className="h-8 w-8 mr-4" />
-                    <h1 className="text-2xl font-bold space-x-3">Painel de Produção Corn House</h1>
-                    <Menu items={[
-                        { label: 'Painel Cione  ', link: '/' },
-                        { label: 'Painel Corn House  ', link: '/PanelCornHouse' },
-                        { label: 'Painel Cione & Corn House  ', link: '/PanelCioneCornHouse' },
-                        // Adicione mais itens conforme necessário
-                    ]} />
-                </div>
-                <div className='text-zinc-950 text-lg font-semibold flex'>
-                    <CalendarDaysIcon className='size-10 text-zinc-50' />
-                    <DatePicker
-                        selected={selectedDate}
-                        onChange={(date) => setSelectedDate(date)}
-                        dateFormat="dd/MM/yyyy"
-                        className="bg-white p-2 rounded-md cursor-pointer"
 
-                    />
-                </div>
-            </header>
-
-
-            <main className="p-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+        < div className="min-h-screen bg-yellow-100 text-zinc-900" >
+            <Header
+                title="Painel de Produção Corn House"
+                selectedDate={selectedDate}
+                setSelectedDate={setSelectedDate}
+            />
+            <main className="p-4 grid grid-cols-1 md:grid-cols-3 gap-4 mt-16">
                 {/* Seção 1: Produtos Produzidos */}
                 <section className="bg-white p-4 rounded shadow ">
                     <h2 className="text-xl font-semibold mb-4">Produtos Produzidos - Caixas</h2>
@@ -313,6 +295,7 @@ export const DashboardCH: React.FC = () => {
                     </div>
                 </section>
             </main>
-        </div>
+        </div >
+
     );
 };

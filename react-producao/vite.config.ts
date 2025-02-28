@@ -7,6 +7,7 @@ export default defineConfig({
   server: {
     host: true, // Permite acessar via IP local
     port: 5173, // Porta que você deseja usar
+    cors: true,
   },
   build: {
     outDir: 'dist', // Diretório de saída da build

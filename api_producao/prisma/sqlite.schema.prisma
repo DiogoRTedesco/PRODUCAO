@@ -1,0 +1,32 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../prisma/generated/sqlite"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"] 
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("SQLITE_URL")
+}
+
+
+
+model User {
+  id                Int         @id @default(autoincrement())
+  usuario           String      @unique
+  password          String
+  usuarioTopManager Int?
+  accessLevel       String @default("User")
+  createdAt         DateTime?   @default(now())
+  updatedAt         DateTime    @updatedAt
+  logs              Logs[]
+}
+
+model Logs {
+  id        Int      @id @default(autoincrement())
+  action    String
+  userId    Int
+  metadata  String?
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+}

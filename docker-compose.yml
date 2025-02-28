@@ -1,4 +1,4 @@
-version: '3.3'
+version: '3.8'
 
 services:
   panel:
@@ -8,7 +8,7 @@ services:
       args:
         - VITE_BASE_URL=${VITE_BASE_URL}
     ports:
-      - "5555:5555"
+      - "5556:5556"
     restart: always
 
   api_producao:
@@ -19,5 +19,12 @@ services:
       - "3333:3333"
     environment:
       - DATABASE_URL=${DATABASE_URL}
+      - JWT_SECRET=${JWT_SECRET}
+      - SQLITE_URL=${SQLITE_URL}
+    volumes:
+      - sqlite_data:/data  
     restart: always
-    
+
+
+volumes:
+  sqlite_data:
