@@ -10,7 +10,7 @@ import { LoginAuth, PrivateRoute } from "./PrivateRoutes";
 import { NotFound } from "../notFound";
 import { Unauthorized } from "../unauthorized";
 import { UserProfilePage } from "../pages/usuario";
-import { LogSearchPage } from "../pages/logs";
+import { LogSearchPage } from "../pages/logsSystem";
 
 
 const Routes = () => {
