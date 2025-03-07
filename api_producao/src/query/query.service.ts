@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { LogsService } from 'src/logs/logs.service';
-import { LogsEnum } from 'src/logs/enum/logs.enum';
+import { LogsService } from 'src/logsSystem/logs.service';
+import { LogsEnum } from 'src/logsSystem/enum/logs.enum';
 import { PrismaSqlServerService } from 'src/prisma/prisma-sqlserver.service';
 
 @Injectable()

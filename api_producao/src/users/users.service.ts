@@ -3,8 +3,8 @@ import { PrismaSqliteService } from 'src/prisma/prisma-sqlite.service';
 import * as bcrypt from 'bcrypt';
 import { CreateUserDto } from './dto/create-user.dto';
 import { AccessLevel } from 'src/access-level/enum/access-level.enum';
-import { LogsService } from 'src/logs/logs.service';
-import { LogsEnum } from 'src/logs/enum/logs.enum';
+import { LogsService } from 'src/logsSystem/logs.service';
+import { LogsEnum } from 'src/logsSystem/enum/logs.enum';
 import { AccessLevelService } from 'src/access-level/access-level.service';
 
 @Injectable()
