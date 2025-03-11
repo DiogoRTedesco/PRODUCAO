@@ -663,4 +663,16 @@ export class QueryService {
       throw new Error(`Erro ao atualizar o rateio: ${error.message}`);
     }
   }
+  getTotalDia(data: string) {
+    return this.prisma.$queryRaw`
+        declare @Data smalldatetime 
+        SET @Data = Convert(Smalldatetime,Convert(Varchar,${data},112))
+
+        Select Total = Sum(QuantidadeTotal) 
+        from ProdDist_Producoes 
+        where Convert(varchar,DataProducao, 112) = @Data
+
+        `
+    
+  }
 }

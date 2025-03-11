@@ -33,6 +33,7 @@ export const PanelRateioEmb: React.FC = () => {
   const userId = sessionStorage.getItem("userId")
   const token = sessionStorage.getItem("accessToken");
   const { selectedDate, setSelectedDate } = useDate();
+  const [total, setTotal] = useState<number | null>(0)
   const [checkedItems, setCheckedItems] = useState<number[]>([]);
   const [selectedData, setSelectedData] = useState<CardData | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -47,6 +48,7 @@ export const PanelRateioEmb: React.FC = () => {
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
+    setCheckedItems([]);
     setSelectedData(null);
   };
 
@@ -72,10 +74,26 @@ export const PanelRateioEmb: React.FC = () => {
         });
     }
   }
+  const getTotalDia = async (date: Date | null) => {
+    if (!date) return;
 
+    try {
+      const formattedDate = date.toISOString().split('T')[0].replace(/-/g, '');
+      const response = await api.get(`/query/total?data=${formattedDate}`);
+
+      if (response.data.length > 0) {
+        setTotal(response.data[0].Total);
+      } else {
+        setTotal(0); // Define 0 se não houver dados retornados
+      }
+    } catch (error) {
+      console.error('Erro ao buscar dados:', error);
+    }
+  };
 
   useEffect(() => {
     getRateio(selectedDate)
+    getTotalDia(selectedDate)
   }, [selectedDate])
 
   useEffect(() => {
@@ -84,6 +102,7 @@ export const PanelRateioEmb: React.FC = () => {
       interval = setInterval(() => {
 
         getRateio(selectedDate)
+        getTotalDia(selectedDate)
       }, 5000);
     }
     return () => clearInterval(interval);
@@ -163,7 +182,6 @@ export const PanelRateioEmb: React.FC = () => {
   const getBeneficiario = async () => {
     try {
       const response = await api.get('/query/beneficiarios');
-      console.log(response.data);
 
       if (response.data && Array.isArray(response.data)) {
         const beneficiarios = response.data;
@@ -197,7 +215,8 @@ export const PanelRateioEmb: React.FC = () => {
       />
       <ToastContainer position={"top-right"} autoClose={5000} />
       <div className="flex flex-wrap  p-4 mt-16 gap-3">
-        <div className="p-4 bg-gray-100 border rounded text-zinc-800" ><div dangerouslySetInnerHTML={{ __html: beneficiariosTexto }} /></div>
+        <div className="p-4 bg-gray-100 border rounded text-zinc-800" ><div dangerouslySetInnerHTML={{ __html: beneficiariosTexto }} />  Total Produzido do Dia: <span className="text-red-600 ">{total}</span> </div>
+
         {(user?.roles.includes("Staff") || user?.roles.includes("Admin")) && selectedDate && isToday(selectedDate) && (
           <button className="bg-blue-500 text-white rounded-lg px-5 py-2 font-medium hover:bg-blue-600 " onClick={() => setIsModalProduction(true)}>
             Registrar Nova Produção

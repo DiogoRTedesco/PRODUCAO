@@ -215,5 +215,9 @@ export class QueryController {
       createdRows: resultado.createRow
     };
   }
+  @Get('/total')
+  async getTotalDia(@Query('data') data: string) {
+    return await this.queryService.getTotalDia(data);
+  }
 
 }
